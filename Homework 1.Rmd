@@ -1,0 +1,71 @@
+---
+title: 'Homework #1'
+author: "Eddie Jakubauskas"
+date: "2023-08-29"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Homework Assignment 1
+
+For this assignment we will be answering questions: A, B, C that was assigned on (8/29/23) for DSCI401
+
+```{r}
+cubs <- read.csv("https://raw.githubusercontent.com/gjm112/DSCI401/main/data/cubs_all_time.csv")
+library(tidyverse)
+```
+Loading up the csv file as well as importing a library tool named 'tidyverse'
+
+# Question (A):
+How many total games have the Cubs won and lost between 1876 and 2022?
+```{r}
+library(mdsr)
+CubsWin <- cubs %>% select (W)
+sum(CubsWin$W)
+```
+The Cubs won 11141 total games between 1876 and 2022
+
+For this line I was able to name my variable 'CubsWin' so that I can print it out later on, I would then continue selecting the 'cubs' variable and selecting it to 'W' (wins) which I could then go on to find the sum for all games won between 1876 and 2022.
+
+```{r}
+CubsLoss <- cubs %>% select(L)
+sum(CubsLoss$L)
+```
+The cubs lost 10592 games between 1876 and 2022
+
+I did the exact same thing as the wins just named this variable 'CubsLoss'.
+
+# Question (B):
+What year did the Cubs score the most runs? What year did the Cubs score the fewest runs? Do you have any thoughts about the year that the Cubs scored the fewest runs?
+
+```{r}
+cubsRuns <- cubs %>% select (R, Year)
+cubsRunsPos <- arrange(cubsRuns, desc(R))
+cubsRunsNeg <- arrange(cubsRuns, R)
+```
+I went on to create a new variable only focusing on the Runs and the year instead of every other column. With this I also created two more variables for positive runs and negative runs. 
+
+```{r}
+cubsRunsPos[1,]
+```
+The Cubs scored the most runs in 1894 with 1056 Runs
+
+```{r}
+cubsRunsNeg[1,]
+```
+The Cubs scored the least runs in 2020 with 265 Runs, I believe it was due to the COVID-19 pandemic that stopped many atheltes from playing their sport but also stopped a lot of things.
+
+After arranging the data into its new variables, these two commands would run and give me the answer for the most and least runs and the year included. 
+
+# Question (C):
+In how many seasons was the Cubs total attendance (i.e. the variable Attendance) over 3 million?
+```{r}
+cubs %>% select(Attendance, Year) %>% filter(Attendance > 3000000)
+```
+Looking at the answer that is prompted in the console, we can see that the years: 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2016, 2017, 2018, and 2019 (12 seasons total) had an attendance of over three million. 
+
+For this line I simply selected the original cubs variable and only selected to look at the Attendance and year while filtering the attendance with more than three million attendees at the games. 
